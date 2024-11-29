@@ -45,5 +45,6 @@
         "compatibility": {}
       }
     ]
-  }
+  },
+  "socket": true
 }
