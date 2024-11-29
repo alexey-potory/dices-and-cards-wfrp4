@@ -1,0 +1,52 @@
+{
+  "id": "dices-and-cards-wfrp4",
+  "title": "Dices and Cards",
+  "version": "#{VERSION}#",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "description": "This VTT Foundry module introduces a touch of gambling excitement to Warhammer Fantasy 4th Edition system, featuring engaging card and dice games for added fun and immersion.",
+  "authors": [
+    {
+      "name": "apotory",
+      "email": "alexey.potory@gmail.com",
+      "url": "https://github.com/alexey-potory",
+      "flags": {}
+    },
+    {
+      "name": "dwarfozavr",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "dices-and-cards-wfrp4.js"
+  ],
+  "styles": [
+    "styles/styles.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Russian",
+      "path": "lang/ru.json"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "wfrp4e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "url": "#{URL}#",
+  "manifest": "#{MANIFEST}#",
+  "download": "#{DOWNLOAD}#"
+}
