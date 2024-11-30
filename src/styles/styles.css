@@ -1,3 +1,50 @@
-body {
-    
+.initialize-game-application {
+    min-width: 650px;
+    min-height: 500px;
+}
+
+.initialize-game-application button {
+    padding: 10px;
+    font-size: 1.2em;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    border: 1px solid black;
+    border-image: url(/../../../systems/wfrp4e/ui/footer-button.webp) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    box-shadow: 4px 4px 1px #00000085;
+    background: url(/../../../systems/wfrp4e/ui/sidebar_button-background_red.webp) repeat;
+    background-origin: padding-box;
+    font-family: var(--major-button-font-family);
+    font-weight: var(--major-button-font-weight);
+    color: var(--major-button-color);
+    line-height: normal;
+    text-shadow: 0px 0px 1px #00000063;
+}
+
+.initialize-game-application tr {
+    background-color: transparent !important;
+}
+
+.initialize-game-application .move-btn i {
+    margin: 0;
+}
+
+.initialize-game-application .move-btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.initialize-game-application .root {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 10px
+}
+
+.initialize-game-application .players-table-container {
+    flex: 1;
+    margin-bottom: 10px;
+    overflow-y: auto;
 }
