@@ -4,7 +4,7 @@ export enum GameState {
     BetweenRounds = 2
 }
 
-export default class AlZahrGame {
+export default class TurnBasedGame {
 
     private _actors: Actor[];
     private _currentActorIndex: number;
@@ -34,7 +34,17 @@ export default class AlZahrGame {
         this._actors.splice(this._actors.indexOf(actor), 1);
     }
 
-    nextTurn() {
+    async startGame() {
+        if (this._gameState === GameState.Playing) {
+            ui.notifications?.warn(`The game is already in progress.`);
+            return;
+        }
+
+        this._gameState = GameState.Playing;
+        await this._onNextTurn();
+    }
+
+    async nextTurn() {
         if (this._gameState !== GameState.Playing) {
             ui.notifications?.warn(`The game has not started yet. Please start the game to proceed to the next turn.`);
             return;
@@ -42,5 +52,11 @@ export default class AlZahrGame {
 
         this._currentActorIndex++;
         this._currentActorIndex %= this._actors.length;
+
+        await this._onNextTurn();
+    }
+
+    async _onNextTurn() {
+        console.log('Default implementation of the "_onNextTurn" method.');
     }
 }
