@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^12.331.1-beta",
+    "@types/jquery": "^3.5.32",
     "fs-extra": "^11.2.0"
   }
 }

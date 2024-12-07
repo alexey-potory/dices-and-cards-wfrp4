@@ -1,9 +1,7 @@
+import {InitializeGameApplication} from "./ui/applications/initialize-game-application";
+
 Hooks.on('ready', () => {
-    const users = game.users?.contents as User[];
-    const actors = game.actors?.contents as Actor[];
-    actors.map(actor => actor.system.details.age.value);
+    const app = new InitializeGameApplication();
 
-    const characters = users.filter(user => user.active && !user.isGM).map(user => user.character);
-
-    console.log(characters);
+    app.render(true);
 });
