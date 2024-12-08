@@ -14,11 +14,11 @@ class GameInitState implements GameState {
 export default class SimpleDiceGame {
 
     private stateMachine: GameStateMachine;
-    private playersSettings: Player[];
+    private players: Player[];
 
     constructor(playersSettings: Player[]) {
         this.stateMachine = new GameStateMachine();
-        this.playersSettings = playersSettings;
+        this.players = playersSettings;
     }
 
     async start() {
