@@ -1,0 +1,7 @@
+<div class="form-group items-selector">
+    <select style="width: 100%" id="item-select">
+        {{#each options as |option index|}}
+            <option data-index="{{index}}" value="{{index}}">{{option.name}}</option>
+        {{/each}}
+    </select>
+</div>

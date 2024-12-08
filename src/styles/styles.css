@@ -48,3 +48,7 @@
     margin-bottom: 10px;
     overflow-y: auto;
 }
+
+.initial-bank-container input {
+    height: 100%;
+}

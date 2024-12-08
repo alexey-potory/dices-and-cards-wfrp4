@@ -1,0 +1,14 @@
+<div class="form-group">
+    <label style="flex: 0.5">Bank (G/S/C)</label>
+    <div class="initial-bank-container" style="flex: 1; display: flex">
+        <input id="gold-input" type="number" placeholder="Gold" value="{{balance.gold}}"/>
+        <input id="silver-input" type="number" placeholder="Silver" value="{{balance.silver}}"/>
+        <input id="copper-input" type="number" placeholder="Copper" value="{{balance.copper}}"/>
+    </div>
+</div>
+<div class="form-group items-selector">
+    <label style="flex: 0.5">User</label>
+    <select style="flex: 1" id="owner-select">
+        {{selectOptions users selected=owner.id}}
+    </select>
+</div>

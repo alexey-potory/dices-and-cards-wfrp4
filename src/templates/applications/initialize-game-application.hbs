@@ -9,16 +9,16 @@
         </tr>
         </thead>
         <tbody id="actorList">
-        {{#each actors as |actor index|}}
-            <tr data-index="{{index}}" data-id="{{actor.id}}">
-                <td>{{actor.name}}</td>
+        {{#each playersSettings as |playerSettings index|}}
+            <tr data-index="{{index}}" data-id="{{playerSettings.actor.id}}">
+                <td>{{playerSettings.actor.name}}</td>
                 <td>
                     <div class="move-btn-container">
                         <button class="actor-btn-up move-btn"><i class="fas fa-arrow-up"></i></button>
                         <button class="actor-btn-down move-btn"><i class="fas fa-arrow-down"></i></button>
                     </div>
                 </td>
-                <td class="move-btn-container">
+                <td>
                     <div class="move-btn-container">
                         <button class="actor-btn-settings move-btn"><i class="fas fa-gear"></i></button>
                         <button class="actor-btn-remove move-btn"><i class="fas fa-trash"></i></button>

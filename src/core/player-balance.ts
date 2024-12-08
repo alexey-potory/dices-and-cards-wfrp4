@@ -13,16 +13,34 @@ export class PlayerBalance {
     private static GOLD_TO_SILVER = 100;
     private static SILVER_TO_COPPER = 100;
 
+    public get gold(): number {
+        return this._gold;
+    }
+
+    public get silver(): number {
+        return this._silver;
+    }
+
+    public get copper(): number {
+        return this._copper;
+    }
+
     constructor(gold: number, silver: number, copper: number) {
         this._gold = gold;
         this._silver = silver;
         this._copper = copper;
     }
 
-
-    // Method to get the balance in Gold, Silver, Copper format (just for display or debugging)
+    // Method to get the balance in Gold, Silver, Copper format
     getBalance(): { gold: number, silver: number, copper: number } {
         return {gold: this._gold, silver: this._silver, copper: this._copper};
+    }
+
+    // Method to set the balance in Gold, Silver, Copper format
+    setBalance(gold: number, silver: number, copper: number): void {
+        this._gold = gold;
+        this._silver = silver;
+        this._copper = copper;
     }
 
     hasEnough(offset: BalanceOffset): boolean {

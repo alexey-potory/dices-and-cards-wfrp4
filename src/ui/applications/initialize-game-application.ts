@@ -1,6 +1,9 @@
 import {modulePath} from "../../contracts";
+import {getAttributeData, getDragEventData} from "../../utils/dom-utils";
+import PlayerSettingsDialog from "../dialogs/player-settings-dialog";
+import {PlayerSettings} from "../../core/settings/player-settings";
 import TriggeredEvent = JQuery.TriggeredEvent;
-import {getAttributeEventData, getDragEventData} from "../../utils/dom-utils";
+import {getActorOwner} from "../../utils/actor-utils";
 
 interface DragGameData {
     uuid: string;
@@ -9,12 +12,12 @@ interface DragGameData {
 
 export class InitializeGameApplication extends Application {
 
-    private readonly gameActors: Actor[];
+    private readonly playersSettings: PlayerSettings[];
 
     constructor() {
         super();
 
-        this.gameActors = [];
+        this.playersSettings = [];
     }
 
     static get defaultOptions() {
@@ -41,7 +44,7 @@ export class InitializeGameApplication extends Application {
 
     getData(options:any) {
         return {
-            actors: this.gameActors
+            playersSettings: this.playersSettings
         };
     }
 
@@ -55,6 +58,8 @@ export class InitializeGameApplication extends Application {
         html.find(".actor-btn-up").click(this._onActorOrderUp.bind(this));
         html.find(".actor-btn-down").click(this._onActorOrderDown.bind(this));
         html.find(".actor-btn-remove").click(this._onActorRemove.bind(this));
+
+        html.find(".actor-btn-settings").click(this._onActorSettings.bind(this))
     }
 
     private async _onActorAdd(event: TriggeredEvent) {
@@ -73,21 +78,27 @@ export class InitializeGameApplication extends Application {
             return;
         }
 
-        if (this.gameActors.find(a => a.uuid === data.uuid)) {
+        if (this.playersSettings.find(a => a.actor.uuid === data.uuid)) {
             console.warn('Actor with this UUID already exists in the gameActors list');
             return;
         }
 
         const document = await fromUuid(data.uuid);
-        const actor = document as Actor;
 
-        this.gameActors.push(actor);
+        const actor = document as Actor;
+        const owner = getActorOwner(actor);
+
+        if (!owner)
+            throw new Error(`Unable to determine owner for the actor with UUID: ${data.uuid}. Ensure that the actor exists and has an associated owner.`);
+
+        const settings = new PlayerSettings(actor, owner);
+        this.playersSettings.push(settings);
         this.render(true);
     }
 
     private async _onActorOrderUp(event: TriggeredEvent) {
-        const index = Number(getAttributeEventData(event, 'index'));
-        const array = this.gameActors;
+        const index = Number(getAttributeData(event.target, 'index'));
+        const array = this.playersSettings;
 
         if (index > 0 && index < array.length) {
             // Swap the current element with the previous one
@@ -98,8 +109,8 @@ export class InitializeGameApplication extends Application {
     }
 
     private async _onActorOrderDown(event: TriggeredEvent) {
-        const index = Number(getAttributeEventData(event, 'index'));
-        const array = this.gameActors;
+        const index = Number(getAttributeData(event.target, 'index'));
+        const array = this.playersSettings;
 
         if (index >= 0 && index < array.length - 1) {
             // Swap the current element with the next one
@@ -110,8 +121,8 @@ export class InitializeGameApplication extends Application {
     }
 
     private async _onActorRemove(event: TriggeredEvent) {
-        const index = Number(getAttributeEventData(event, 'index'));
-        const array = this.gameActors;
+        const index = Number(getAttributeData(event.target, 'index'));
+        const array = this.playersSettings;
 
         if (index >= 0 && index < array.length) {
             // Remove the element at the given index
@@ -119,5 +130,14 @@ export class InitializeGameApplication extends Application {
         }
 
         this.render(true);
+    }
+
+    private async _onActorSettings(event: TriggeredEvent) {
+        const index = Number(getAttributeData(event.target, 'index'));
+
+        const title = this.playersSettings[index].actor.name;
+        const dialog = new PlayerSettingsDialog({title: title, submitLabel: 'Save', cancelLabel: 'Cancel' });
+
+        await dialog.open(this.playersSettings[index]);
     }
 }
