@@ -1,7 +1,7 @@
 import GameStateMachine, {GameState} from "../game-state-machine";
-import {PlayerSettings} from "../settings/player-settings";
+import Player from "../player";
 
-class StartGameState implements GameState {
+class GameInitState implements GameState {
     async onEnter(): Promise<void> {
         console.log('On enter "StartGameState"');
     }
@@ -14,14 +14,14 @@ class StartGameState implements GameState {
 export default class SimpleDiceGame {
 
     private stateMachine: GameStateMachine;
-    private playersSettings: PlayerSettings[];
+    private playersSettings: Player[];
 
-    constructor(playersSettings: PlayerSettings[]) {
+    constructor(playersSettings: Player[]) {
         this.stateMachine = new GameStateMachine();
         this.playersSettings = playersSettings;
     }
 
     async start() {
-        await this.stateMachine.enter(new StartGameState());
+        await this.stateMachine.enter(new GameInitState());
     }
 }

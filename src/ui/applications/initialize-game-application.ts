@@ -1,10 +1,10 @@
 import {modulePath} from "../../contracts";
 import {getAttributeData, getDragEventData} from "../../utils/dom-utils";
 import PlayerSettingsDialog from "../dialogs/player-settings-dialog";
-import {PlayerSettings} from "../../core/settings/player-settings";
 import TriggeredEvent = JQuery.TriggeredEvent;
 import {getActorOwner} from "../../utils/actor-utils";
 import SimpleDiceGame from "../../core/games/simple-dice-game";
+import Player from "../../core/player";
 
 interface DragGameData {
     uuid: string;
@@ -13,12 +13,12 @@ interface DragGameData {
 
 export class InitializeGameApplication extends Application {
 
-    private readonly playersSettings: PlayerSettings[];
+    private readonly players: Player[];
 
     constructor() {
         super();
 
-        this.playersSettings = [];
+        this.players = [];
     }
 
     static get defaultOptions() {
@@ -45,7 +45,7 @@ export class InitializeGameApplication extends Application {
 
     getData(options:any) {
         return {
-            playersSettings: this.playersSettings
+            playersSettings: this.players
         };
     }
 
@@ -81,7 +81,7 @@ export class InitializeGameApplication extends Application {
             return;
         }
 
-        if (this.playersSettings.find(a => a.actor.uuid === data.uuid)) {
+        if (this.players.find(a => a.actor.uuid === data.uuid)) {
             console.warn('Actor with this UUID already exists in the gameActors list');
             return;
         }
@@ -94,14 +94,14 @@ export class InitializeGameApplication extends Application {
         if (!owner)
             throw new Error(`Unable to determine owner for the actor with UUID: ${data.uuid}. Ensure that the actor exists and has an associated owner.`);
 
-        const settings = new PlayerSettings(actor, owner);
-        this.playersSettings.push(settings);
+        const settings = new Player(actor, owner);
+        this.players.push(settings);
         this.render(true);
     }
 
     private async _onActorOrderUp(event: TriggeredEvent) {
         const index = Number(getAttributeData(event.target, 'index'));
-        const array = this.playersSettings;
+        const array = this.players;
 
         if (index > 0 && index < array.length) {
             // Swap the current element with the previous one
@@ -113,7 +113,7 @@ export class InitializeGameApplication extends Application {
 
     private async _onActorOrderDown(event: TriggeredEvent) {
         const index = Number(getAttributeData(event.target, 'index'));
-        const array = this.playersSettings;
+        const array = this.players;
 
         if (index >= 0 && index < array.length - 1) {
             // Swap the current element with the next one
@@ -125,7 +125,7 @@ export class InitializeGameApplication extends Application {
 
     private async _onActorRemove(event: TriggeredEvent) {
         const index = Number(getAttributeData(event.target, 'index'));
-        const array = this.playersSettings;
+        const array = this.players;
 
         if (index >= 0 && index < array.length) {
             // Remove the element at the given index
@@ -138,16 +138,16 @@ export class InitializeGameApplication extends Application {
     private async _onActorSettings(event: TriggeredEvent) {
         const index = Number(getAttributeData(event.target, 'index'));
 
-        const title = this.playersSettings[index].actor.name;
+        const title = this.players[index].actor.name;
         const dialog = new PlayerSettingsDialog({title: title, submitLabel: 'Save', cancelLabel: 'Cancel' });
 
-        await dialog.open(this.playersSettings[index]);
+        await dialog.open(this.players[index]);
     }
 
     private async _onStartGame() {
         await this.close();
 
-        const game = new SimpleDiceGame(this.playersSettings);
+        const game = new SimpleDiceGame(this.players);
         await game.start();
     }
 }

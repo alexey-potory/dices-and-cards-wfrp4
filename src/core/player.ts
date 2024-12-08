@@ -1,17 +1,13 @@
 import {PlayerBalance} from "./player-balance";
 
 export default class Player {
-    private _user: User;
-    private _balance: PlayerBalance;
+    public readonly actor: Actor;
+    public readonly balance: PlayerBalance = new PlayerBalance(0, 0, 0);
 
-    constructor(user: User, balance: PlayerBalance) {
-        this._user = user;
-        this._balance = balance;
-    }
+    public owner: User;
 
-    // Method to require a move from the player
-    requireMove(): void {
-        // TODO: Implement logic to require a move from the player
-        // Possibly involve waiting for input or other game logic
+    constructor(actor: Actor, owner: User) {
+        this.actor = actor;
+        this.owner = owner;
     }
 }

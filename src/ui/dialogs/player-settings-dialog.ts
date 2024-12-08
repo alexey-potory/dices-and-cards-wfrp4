@@ -1,6 +1,6 @@
 import {modulePath} from "../../contracts";
-import {PlayerSettings} from "../../core/settings/player-settings";
 import {arrayToSelectObject} from "../../utils/game-object-utils";
+import Player from "../../core/player";
 
 export interface PlayerSettingsDialogSettings {
     title: string;
@@ -10,14 +10,14 @@ export interface PlayerSettingsDialogSettings {
 
 export default class PlayerSettingsDialog {
     private readonly settings: PlayerSettingsDialogSettings;
-    private options!: PlayerSettings;
+    private player!: Player;
 
     constructor(options: PlayerSettingsDialogSettings) {
         this.settings = options;
     }
 
-    async open(options: PlayerSettings): Promise<PlayerSettings> {
-        this.options = options;
+    async open(player: Player): Promise<Player> {
+        this.player = player;
 
         return new Promise(async (resolve) => {
 
@@ -29,7 +29,7 @@ export default class PlayerSettingsDialog {
             const usersList = arrayToSelectObject(users);
 
             const content = await renderTemplate(`${modulePath}/templates/dialogs/player-settings-dialog.hbs`, {
-                ...this.options,
+                ...this.player,
                 users: usersList
             });
 
@@ -49,16 +49,16 @@ export default class PlayerSettingsDialog {
 
                                 const ownerId = html.find("#owner-select").val()
 
-                                options.balance.setBalance(gold, silver, copper);
-                                options.owner = game.users?.find(u => u.id === ownerId) as User;
+                                player.balance.setBalance(gold, silver, copper);
+                                player.owner = game.users?.find(u => u.id === ownerId) as User;
 
-                                return this.options;
+                                return this.player;
                             }
                         }
                     },
                     cancel: {
                         label: this.settings.cancelLabel,
-                        callback: () => resolve(this.options)
+                        callback: () => resolve(this.player)
                     }
                 },
                 default: "ok"
