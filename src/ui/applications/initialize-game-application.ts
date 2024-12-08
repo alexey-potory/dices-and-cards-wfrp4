@@ -4,6 +4,7 @@ import PlayerSettingsDialog from "../dialogs/player-settings-dialog";
 import {PlayerSettings} from "../../core/settings/player-settings";
 import TriggeredEvent = JQuery.TriggeredEvent;
 import {getActorOwner} from "../../utils/actor-utils";
+import SimpleDiceGame from "../../core/games/simple-dice-game";
 
 interface DragGameData {
     uuid: string;
@@ -54,12 +55,14 @@ export class InitializeGameApplication extends Application {
         // Drag and drop
         html.find('.players-table-container').on('drop', this._onActorAdd.bind(this));
 
-        // Remove and changing order
+        // Remove and changing order and settings
         html.find(".actor-btn-up").click(this._onActorOrderUp.bind(this));
         html.find(".actor-btn-down").click(this._onActorOrderDown.bind(this));
         html.find(".actor-btn-remove").click(this._onActorRemove.bind(this));
-
         html.find(".actor-btn-settings").click(this._onActorSettings.bind(this))
+
+        // Start
+        html.find("#start-game-btn").click(this._onStartGame.bind(this))
     }
 
     private async _onActorAdd(event: TriggeredEvent) {
@@ -139,5 +142,12 @@ export class InitializeGameApplication extends Application {
         const dialog = new PlayerSettingsDialog({title: title, submitLabel: 'Save', cancelLabel: 'Cancel' });
 
         await dialog.open(this.playersSettings[index]);
+    }
+
+    private async _onStartGame() {
+        await this.close();
+
+        const game = new SimpleDiceGame(this.playersSettings);
+        await game.start();
     }
 }
