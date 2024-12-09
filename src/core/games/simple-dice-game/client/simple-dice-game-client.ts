@@ -1,4 +1,4 @@
-import {SimpleDiceGameApplication} from "../../../../ui/games/simple-dice-game";
+import {SimpleDiceGameApplication} from "../../../../ui/games/simple-dice-game-application";
 
 export default class SimpleDiceGameClient {
 

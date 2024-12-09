@@ -1,0 +1,67 @@
+<div class="container">
+    <aside class="sidebar">
+        <h2>Bank</h2>
+        <div class="bank-row">
+            <div class="currency-display" style="color: yellow">
+                <i class="fa-solid fa-coins"></i>
+                <p style="margin: 0">1</p>
+            </div>
+            <div class="currency-display">
+                <i class="fa-solid fa-coins"></i>
+                <p style="margin: 0">10</p>
+            </div>
+            <div class="currency-display" style="color: sandybrown">
+                <i class="fa-solid fa-coins"></i>
+                <p style="margin: 0">100</p>
+            </div>
+        </div>
+        <h2 style="margin-top: 10px">Information</h2>
+        <div class="info-row">
+            <div class="target-display">
+                <i class="fas fa-bullseye-arrow"></i>
+                <p style="margin: 0">13</p>
+            </div>
+        </div>
+        <h2 style="margin-top: 10px">Players</h2>
+        <div class="players-list">
+            <ul>
+                {{#each actors as |actor index|}}
+                    <li>
+                        <div class="player-card">
+                            <img title="{{actor.name}}" src="{{actor.img}}" alt="{{actor.name}}">
+                            <div>
+                                <div class="name">{{actor.name}}</div>
+                                <div class="status">In-game</div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </aside>
+    <main class="main-content">
+        <h2>Game Table</h2>
+        <div class="game-table">
+            <div>
+                <div class="dice-container">
+                    <div class="dice-text-root">
+                        <p style="font-family: Signika, sans-serif;">5</p>
+                    </div>
+                    <i class="fas fa-dice-d10 dice-icon"></i>
+                </div>
+            </div>
+            <div>
+                <div class="dice-container">
+                    <div class="dice-text-root">
+                        <p style="font-family: Signika, sans-serif;">7</p>
+                    </div>
+                    <i class="fas fa-dice-d10 dice-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 15px; font-size: 1rem">
+            <button>Roll</button>
+            <button>Pass</button>
+        </div>
+    </main>
+</div>

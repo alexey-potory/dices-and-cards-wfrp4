@@ -43,12 +43,183 @@
     margin-bottom: 10px
 }
 
-.initialize-game-application .players-table-container {
-    flex: 1;
-    margin-bottom: 10px;
-    overflow-y: auto;
-}
-
 .initial-bank-container input {
     height: 100%;
+}
+
+.simple-dice-game-application {
+    min-width: 650px;
+    min-height: 500px;
+}
+
+.simple-dice-game-application button {
+    padding: 10px;
+    font-size: 1.2em;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    border: 1px solid black;
+    border-image: url(/../../../systems/wfrp4e/ui/footer-button.webp) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    box-shadow: 4px 4px 1px #00000085;
+    background: url(/../../../systems/wfrp4e/ui/sidebar_button-background_red.webp) repeat;
+    background-origin: padding-box;
+    font-family: var(--major-button-font-family);
+    font-weight: var(--major-button-font-weight);
+    color: var(--major-button-color);
+    line-height: normal;
+    text-shadow: 0px 0px 1px #00000063;
+}
+
+.simple-dice-game-application .container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.simple-dice-game-application .sidebar {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.simple-dice-game-application .sidebar h2 {
+    margin-bottom: 15px;
+}
+
+.simple-dice-game-application .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.simple-dice-game-application .sidebar ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.simple-dice-game-application .sidebar ul li a {
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+}
+
+.simple-dice-game-application .sidebar ul li img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.simple-dice-game-application .sidebar ul li .status {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.simple-dice-game-application .sidebar ul li .name {
+    font-weight: bold;
+    max-width: 150px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.simple-dice-game-application .main-content {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.simple-dice-game-application .main-content .game-table {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.simple-dice-game-application .main-content .dice-container {
+    position: relative;
+    display: inline-block; /* Ensures the container size is determined by the icon */
+    margin-right: 15px;
+}
+
+.simple-dice-game-application .main-content .dice-container .dice-text-root {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background: black;
+    width: 60px;
+    height: 60px
+}
+
+.simple-dice-game-application .main-content .dice-icon {
+    font-size: 110px;
+}
+
+.simple-dice-game-application .players-list {
+    overflow-y: auto;
+    display: flex;
+    flex: 1
+}
+
+.simple-dice-game-application .players-list ul {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.simple-dice-game-application .players-list .player-card {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 5px;
+    border-radius: 500px;
+    transition: background-color 250ms linear, color 250ms linear;
+}
+
+.simple-dice-game-application .players-list .player-card.active {
+    background-color: rgba(128, 128, 64, 0.5);
+    transition: background-color 250ms linear, color 250ms linear;
+}
+
+.simple-dice-game-application .players-list .player-card.active .status {
+    color: rgb(211, 211, 211);
+}
+
+.simple-dice-game-application .bank-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    margin-top: 5px
+}
+
+.simple-dice-game-application .bank-row .currency-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.simple-dice-game-application .info-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    margin-top: 5px
+}
+
+.simple-dice-game-application .info-row .target-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
