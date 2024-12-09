@@ -1,20 +1,7 @@
 <div class="container">
     <aside class="sidebar">
         <h2>Bank</h2>
-        <div class="bank-row">
-            <div class="currency-display" style="color: yellow">
-                <i class="fa-solid fa-coins"></i>
-                <p style="margin: 0">1</p>
-            </div>
-            <div class="currency-display">
-                <i class="fa-solid fa-coins"></i>
-                <p style="margin: 0">10</p>
-            </div>
-            <div class="currency-display" style="color: sandybrown">
-                <i class="fa-solid fa-coins"></i>
-                <p style="margin: 0">100</p>
-            </div>
-        </div>
+        {{> modules/dices-and-cards-wfrp4/templates/games/simple-dice-game-components/simple-dice-game-money-display.hbs}}
         <h2 style="margin-top: 10px">Information</h2>
         <div class="info-row">
             <div class="target-display">
@@ -30,7 +17,7 @@
                         <div class="player-card">
                             <img title="{{actor.name}}" src="{{actor.img}}" alt="{{actor.name}}">
                             <div>
-                                <div class="name">{{actor.name}}</div>
+                                <div class="name">{{#if ../isGM}}<a style="display: inline-block; margin-right: 5px; padding: 0" class="fas fa-gear settings-link"></a> {{/if}}{{actor.name}}</div>
                                 <div class="status">In-game</div>
                             </div>
                         </div>
@@ -41,27 +28,6 @@
     </aside>
     <main class="main-content">
         <h2>Game Table</h2>
-        <div class="game-table">
-            <div>
-                <div class="dice-container">
-                    <div class="dice-text-root">
-                        <p style="font-family: Signika, sans-serif;">5</p>
-                    </div>
-                    <i class="fas fa-dice-d10 dice-icon"></i>
-                </div>
-            </div>
-            <div>
-                <div class="dice-container">
-                    <div class="dice-text-root">
-                        <p style="font-family: Signika, sans-serif;">7</p>
-                    </div>
-                    <i class="fas fa-dice-d10 dice-icon"></i>
-                </div>
-            </div>
-        </div>
-        <div style="display: flex; flex-direction: row; gap: 15px; font-size: 1rem">
-            <button>Roll</button>
-            <button>Pass</button>
-        </div>
+        {{> modules/dices-and-cards-wfrp4/templates/games/simple-dice-game-components/simple-dice-game-bid-table.hbs}}
     </main>
 </div>

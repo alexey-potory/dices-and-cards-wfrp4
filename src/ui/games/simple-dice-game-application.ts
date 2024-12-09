@@ -2,6 +2,7 @@ import {modulePath} from "../../contracts";
 import {LiteEvent} from "../../core/events/lite-event";
 import {SimpleDiceGameClientState} from "../../core/games/simple-dice-game/client/simple-dice-game-client-state";
 import SimpleDiceGameTurn from "../../core/games/simple-dice-game/simple-dice-game-turn";
+import TriggeredEvent = JQuery.TriggeredEvent;
 
 export class SimpleDiceGameApplication extends Application {
     private readonly onClose = new LiteEvent<void>();
@@ -20,8 +21,11 @@ export class SimpleDiceGameApplication extends Application {
         //    throw new Error('Invalid state: Either "state" or "turn" is undefined. Ensure the game is initialized and a turn is in progress before calling getData.');
         //}
 
+        const isGM = game.user?.isGM;
+
         return {
-            actors: game.actors?.contents!
+            actors: game.actors?.contents!,
+            isGM
         };
     }
 
@@ -55,6 +59,13 @@ export class SimpleDiceGameApplication extends Application {
         };
 
         return foundry.utils.mergeObject(super.defaultOptions, settings);
+    }
+
+    activateListeners(html: any) {
+        super.activateListeners(html);
+
+        // Drag and drop
+        html.find('.settings-link').on('click', (ev: TriggeredEvent) => console.log('Settings link clicked', ev));
     }
 
     async close(options = {}) {
