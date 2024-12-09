@@ -1,14 +1,7 @@
-export interface GameState {
-    onEnter() : Promise<void>
-    onExit() : Promise<void>
-}
+import GameState from "./game-state";
 
 export default class GameStateMachine {
     private currenState: GameState | undefined;
-
-    constructor() {
-        this.currenState = undefined;
-    }
 
     async enter(state: GameState) {
         if (this.currenState)

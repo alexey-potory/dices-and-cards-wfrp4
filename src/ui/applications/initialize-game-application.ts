@@ -3,7 +3,6 @@ import {getAttributeData, getDragEventData} from "../../utils/dom-utils";
 import PlayerSettingsDialog from "../dialogs/player-settings-dialog";
 import TriggeredEvent = JQuery.TriggeredEvent;
 import {getActorOwner} from "../../utils/actor-utils";
-import SimpleDiceGame from "../../core/games/simple-dice-game";
 import Player from "../../core/player";
 
 interface DragGameData {
@@ -147,7 +146,12 @@ export class InitializeGameApplication extends Application {
     private async _onStartGame() {
         await this.close();
 
-        const game = new SimpleDiceGame(this.players);
-        await game.start();
+        const gameCore = game.dicesAndCards?.games.simpleDiceGame.core;
+
+        if (!gameCore) {
+            throw new Error('Game core is not initialized. Please ensure the "simpleDiceGame" is properly configured in "dicesAndCards.games".');
+        }
+
+        await gameCore.start(this.players);
     }
 }

@@ -1,5 +1,7 @@
 import {InitializeGameApplication} from "./ui/applications/initialize-game-application";
 import {modulePath} from "./contracts";
+import SimpleDiceGameClient from "./core/games/simple-dice-game/client/simple-dice-game-client";
+import SimpleDiceGameCore from "./core/games/simple-dice-game/simple-dice-game-core";
 
 Hooks.on('init', async () => {
     const templatePaths = [
@@ -12,7 +14,17 @@ Hooks.on('init', async () => {
 });
 
 Hooks.on('ready', () => {
-    const app = new InitializeGameApplication();
+    if (game.user?.isGM) {
+        const app = new InitializeGameApplication();
+        app.render(true);
+    }
 
-    app.render(true);
+    game.dicesAndCards = {
+        games: {
+            simpleDiceGame: {
+                core: new SimpleDiceGameCore(),
+                client: new SimpleDiceGameClient()
+            }
+        }
+    }
 });
